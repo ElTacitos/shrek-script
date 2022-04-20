@@ -18,14 +18,14 @@
     grid-area: 1 / 1 / 2 / 2;
     direction: rtl;
     text-align: right;
-    white-space: nowrap;
+    white-space: pre;
     overflow: hidden;
     border: green solid 1px;
 }
 
 .Input {
     grid-area: 1 / 2 / 2 / 3;
-    border: pink solid 1px !important;
+    border: pink solid 1px;
 }
 
 .AfterText {

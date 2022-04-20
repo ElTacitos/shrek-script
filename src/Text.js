@@ -4,26 +4,21 @@ import React from 'react';
 import script from "./assets/script.json";
 
 function Text() {
-    const [lineNumber, setLineNumber] = React.useState(0);
-    const [pos, setPos] = React.useState(0);
-    const [textToType, setTextToType] = React.useState(script.lines[lineNumber]);
-    const [beforeText, setBeforeText] = React.useState("");
-    const [afterText, setAfterText] = React.useState(script.lines[lineNumber]);
+    const [lineNumber, setLineNumber] = React.useState(1);
+    const [beforeText, setBeforeText] = React.useState("Click on the blinking caret ");
+    const [afterText, setAfterText] = React.useState(script.lines[0]);
 
     function handleKeyDown(key) {
-        console.log("test", afterText)
+        console.log("lineNumber", lineNumber)
         if(afterText[0] === key) {
-            setPos(pos + 1);
-
             setBeforeText(beforeText + afterText.substring(0, 1));
             setAfterText(afterText.substring(1, afterText.length));
 
-            console.log("test", afterText)
             if(afterText.length === 1) {
-                setPos(0);
+                console.log("lineNumber+1", lineNumber+1)
                 setLineNumber(lineNumber+1);
-                setTextToType(script.lines[lineNumber]);
                 setBeforeText("");
+                console.log("lineNumber", lineNumber)
                 setAfterText(script.lines[lineNumber]);
             }
         } else {

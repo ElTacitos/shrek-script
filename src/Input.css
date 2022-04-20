@@ -1,5 +1,35 @@
+.Input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 0;
+}
+
 input, input:active, input:focus{
     outline: none;
     border: none;
-    background: #282b2d;
+    padding: 0;
+    background: #181a1b;
+    width: 100%;
+
+    caret-color: #181a1b;
+}
+
+.Caret {
+    height: 0.1rem;
+    width: 100%;
+    animation: blink-animation 0.75s steps(5, start) infinite;
+    -webkit-animation: blink-animation 0.75s steps(5, start) infinite;
+}
+
+@keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+@-webkit-keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
 }

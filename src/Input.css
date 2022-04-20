@@ -1,0 +1,5 @@
+input, input:active, input:focus{
+    outline: none;
+    border: none;
+    background: #282b2d;
+}

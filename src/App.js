@@ -1,25 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import Input from "./Input";
+import script from "./assets/script.json"
+import React from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [lineNumber, setLineNumber] = React.useState(0);
+    const [text, setText] = React.useState("");
+    const [pos, setPos] = React.useState(0);
+    const [textToType, setTextToType] = React.useState(script.lines[lineNumber]);
+
+    function handleKeyDown(key) {
+        if(textToType[pos] === key) {
+            setPos(pos + 1);
+            setText(text+key);
+
+            if(pos === textToType.length-1) {
+                setText("");
+                setPos(0);
+                setLineNumber(lineNumber+1);
+                setTextToType(script.lines[lineNumber]);
+            }
+        } else {
+            console.error("Wrong key!", key);
+        }
+    }
+
+    return (
+        <div className="App">
+            <span>{ textToType }      {textToType[pos]}{pos}</span>
+            <br/>
+            <span>YOU: { text }</span>
+            <Input handleKeyDown={handleKeyDown}/>
+        </div>
+    );
 }
 
 export default App;

@@ -3,13 +3,19 @@ import Input from "./Input";
 import React from 'react';
 import script from "./assets/script.json";
 
-function Text() {
+function Text(props) {
     const [lineNumber, setLineNumber] = React.useState(1);
-    const [beforeText, setBeforeText] = React.useState("Click on the blinking caret ");
+    const [beforeText, setBeforeText] = React.useState("Click on the caret ");
     const [afterText, setAfterText] = React.useState(script.lines[0]);
 
+    const keysToIgnore = ["Shift", "CapsLock", "Alt", "Control"]
+
     function handleKeyDown(key) {
-        console.log("lineNumber", lineNumber)
+        console.log(script.lines.map(line => line.length).reduce((a, b) => a + b)-19);
+
+        if (keysToIgnore.includes(key)) {
+            return;
+        }
         if(afterText[0] === key) {
             setBeforeText(beforeText + afterText.substring(0, 1));
             setAfterText(afterText.substring(1, afterText.length));
@@ -21,8 +27,12 @@ function Text() {
                 console.log("lineNumber", lineNumber)
                 setAfterText(script.lines[lineNumber]);
             }
-        } else {
+        } else{
             console.error("Wrong key press!", key);
+        }
+
+        if(lineNumber !== 1) {
+            props.passKeyPress(afterText[0] === key);
         }
     }
 

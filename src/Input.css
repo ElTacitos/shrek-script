@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
     border: 0;
 }
@@ -10,7 +11,7 @@ input, input:active, input:focus{
     outline: none;
     border: none;
     padding: 0;
-    background: #181a1b;
+    background: transparent;
     width: 100%;
 
     caret-color: #181a1b;
@@ -19,6 +20,9 @@ input, input:active, input:focus{
 .Caret {
     height: 0.1rem;
     width: 100%;
+}
+
+.Blinking {
     animation: blink-animation 0.75s steps(5, start) infinite;
     -webkit-animation: blink-animation 0.75s steps(5, start) infinite;
 }

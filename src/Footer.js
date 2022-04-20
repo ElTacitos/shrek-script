@@ -1,6 +1,13 @@
-function Footer() {
+import "./Footer.css";
+import ProgressBar from "./ProgressBar";
+
+function Footer(props) {
     return (
-        <span>Footer</span>
+        <div className="Footer">
+            <span>Errors:{props.nbError}</span>
+            <ProgressBar progress={props.charPassed}/>
+            <span>Timer</span>
+        </div>
     )
 }
 

@@ -21,7 +21,7 @@ function App() {
                 setTextToType(script.lines[lineNumber]);
             }
         } else {
-            console.error("Wrong key pressed!", key);
+            console.error("Wrong key press!", key);
         }
     }
 

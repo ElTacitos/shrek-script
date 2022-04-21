@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import {Context} from "../Context";
 
 function Timer() {
-    const [seconds, setSeconds] = useState(0);
+    const {dispatch, state} = React.useContext(Context);
 
     function getSeconds() {
-        return String(seconds%60).padStart(2, '0');
+        return String(state.seconds%60).padStart(2, '0');
     }
 
     function getMinutes() {
-        return String(Math.floor(seconds/60)).padStart(2, '0');
+        return String(Math.floor(state.seconds/60)).padStart(2, '0');
     }
 
     function getHours() {
-        return String(Math.floor(seconds/3600)).padStart(2, '0');
+        return String(Math.floor(state.seconds/3600)).padStart(2, '0');
     }
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setSeconds(seconds => seconds + 1);
+            dispatch({type: "INCREMENT_SECONDS"});
         }, 1000);
         return () => clearInterval(interval);
     }, []);

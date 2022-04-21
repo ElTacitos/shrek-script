@@ -1,8 +1,9 @@
 import "./Input.css";
 import React from 'react';
+import {Context} from "../Context";
 
 function Input(props) {
-    const [focused, setFocused] = React.useState(false)
+    const {dispatch, state} = React.useContext(Context);
     const onFocus = () => setFocused(true)
     const onBlur = () => setFocused(false);
 
@@ -11,6 +12,10 @@ function Input(props) {
     function handleKeyDown(event) {
         inputValue = "";
         props.handleKeyDown(event.key);
+    }
+
+    function setFocused(value) {
+        dispatch({type: "SET_FOCUSED", value});
     }
 
     function voidHandler() {
@@ -27,7 +32,7 @@ function Input(props) {
                 type="textfield"
                 value={inputValue}
             />
-            <svg className={`Caret ${focused ? "Blinking" : ""}`}>
+            <svg className={`Caret ${state.focused ? "Blinking" : ""}`}>
                 <rect fill="white" width="100%" height="0.1rem"/>
             </svg>
         </div>

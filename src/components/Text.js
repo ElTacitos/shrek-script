@@ -1,9 +1,11 @@
 import './Text.css'
 import Input from "./Input";
 import React from 'react';
-import script from "./assets/script.json";
+import script from "../assets/script.json";
+import {Context} from "../Context";
 
-function Text(props) {
+function Text() {
+    const {dispatch} = React.useContext(Context);
     const [lineNumber, setLineNumber] = React.useState(1);
     const [beforeText, setBeforeText] = React.useState("Click on the caret ");
     const [afterText, setAfterText] = React.useState(script.lines[0]);
@@ -32,7 +34,7 @@ function Text(props) {
         }
 
         if(lineNumber !== 1) {
-            props.passKeyPress(afterText[0] === key);
+            dispatch({type: "HANDLE_KEY_PRESS", correct: afterText[0] === key});
         }
     }
 

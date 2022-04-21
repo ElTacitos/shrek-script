@@ -10,35 +10,36 @@ function Text() {
     const [beforeText, setBeforeText] = React.useState("Click on the caret ");
     const [afterText, setAfterText] = React.useState(script.lines[0]);
 
-    const keysToIgnore = ["Shift", "CapsLock", "Alt", "Control"]
-    const maxCharsBefore = 100;
+    const keysToIgnore = ["Shift", "CapsLock", "Alt", "Control", "Backspace", "Escape"]
+    const maxChars = 400;
+    const maxLinesAfter = 4;
 
     function handleCorrectKey() {
         setBeforeText(beforeText + afterText[0]);
         setAfterText(afterText.substring(1, afterText.length));
 
         if(afterText.length === 1) {
-            let newBeforeText = beforeText + afterText[0];
-
-            dispatch({type: "END_TUTORIAL"})
-            setLineNumber(lineNumber+1);
-            if(beforeText.length >= maxCharsBefore) {
-                console.log("Too long")
-                console.log(beforeText.substring(beforeText.length-maxCharsBefore, beforeText.length))
-                newBeforeText =
-                    beforeText.substring(
-                        beforeText.length-maxCharsBefore,
-                        beforeText.length
-                    ) + afterText[0];
+            if(!state.tutorialDone) {
+                dispatch({type: "END_TUTORIAL"})
+                setBeforeText("");
             }
-            setBeforeText(newBeforeText);
+            setLineNumber(lineNumber + maxLinesAfter);
+            setAfterText(script.lines.slice(lineNumber, lineNumber+maxLinesAfter).join(""));
+            return;
+        }
+        if (state.tutorialDone && afterText.length <= maxChars) {
+            console.log("ADDED TEXT")
+            setLineNumber(lineNumber + 1);
+            setAfterText(afterText.substring(1, afterText.length) + script.lines[lineNumber]);
+        }
 
-            setAfterText(script.lines[lineNumber]);
+        if (beforeText.length >= maxChars) {
+            console.log("RESET TEXT")
+            setBeforeText(beforeText.substring(beforeText.length/2, beforeText.length)+ afterText[0]);
         }
     }
 
     function handleKeyDown(key) {
-        // console.log(script.lines.map(line => line.length).reduce((a, b) => a + b)-19);
         if (keysToIgnore.includes(key)) {
             return;
         }
@@ -51,6 +52,7 @@ function Text() {
         if(state.tutorialDone) {
             dispatch({type: "HANDLE_KEY_PRESS", correct: afterText[0] === key});
         }
+
     }
 
     return (

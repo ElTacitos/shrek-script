@@ -21,7 +21,7 @@ function Timer() {
             dispatch({type: "INCREMENT_SECONDS"});
         }, 1000);
         return () => clearInterval(interval);
-    }, []);
+    }, [dispatch]);
 
     return (
         <div>

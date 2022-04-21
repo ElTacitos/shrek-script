@@ -1,10 +1,13 @@
 import './ProgressBar.css';
+import React from "react";
+import {Context} from "../Context";
 
-function ProgressBar(props) {
+function ProgressBar() {
+    const {state} = React.useContext(Context);
     const totalChars = 48029;
     return (
         <div className="ProgressBar">
-            CHARS: {props.progress}/{totalChars}
+            CHARS: {state.nbCorrect}/{totalChars}
             <svg className="Bar">
                 <rect
                     width="100%"
@@ -12,7 +15,7 @@ function ProgressBar(props) {
                     fill="#2F2F2F"
                 />
                 <rect
-                    width={`${props.progress*100/totalChars}%`}
+                    width={`${state.nbCorrect*100/totalChars}%`}
                     height="100%"
                     fill="#FFCB74"
                 />

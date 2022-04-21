@@ -1,10 +1,12 @@
 import './App.css';
 import React from 'react';
-import Text from "./Text";
-import Footer from "./Footer";
-import Header from "./Header";
+import Text from "./components/Text";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import {Context, initialState, reducer} from "./Context";
 
 function App() {
+    const [state, dispatch] = React.useReducer(reducer, initialState);
     const [charPassed, setCharPassed] = React.useState(0);
     const [nbError, setNbError] = React.useState(0);
 
@@ -16,11 +18,13 @@ function App() {
         }
     }
     return (
-        <div className="App">
-            <Header/>
-            <Text passKeyPress={passKeyPress}/>
-            <Footer nbError={nbError} charPassed={charPassed}/>
-        </div>
+        <Context.Provider value={{state, dispatch}}>
+            <div className="App">
+                <Header/>
+                <Text passKeyPress={passKeyPress}/>
+                <Footer charPassed={charPassed} nbError={nbError}/>
+            </div>
+        </Context.Provider>
     );
 }
 

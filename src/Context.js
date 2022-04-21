@@ -10,6 +10,11 @@ export const initialState = {
 
 export function reducer(state, action) {
     switch (action.type) {
+        case "END_TUTORIAL":
+            return {
+                ...state,
+                tutorialDone: true,
+            }
         case "HANDLE_KEY_PRESS":
             if (action.correct) {
                 return {
@@ -25,7 +30,7 @@ export function reducer(state, action) {
         case "INCREMENT_SECONDS":
             return {
                 ...state,
-                seconds: state.focused ? state.seconds + 1 : state.seconds
+                seconds: state.focused && state.tutorialDone ? state.seconds + 1 : state.seconds
             }
         case "SET_FOCUSED":
             return {

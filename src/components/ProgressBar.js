@@ -1,10 +1,11 @@
 import './ProgressBar.css';
 import React from "react";
+import script from "../assets/script.json";
 import {Context} from "../Context";
 
 function ProgressBar() {
     const {state} = React.useContext(Context);
-    const totalChars = 48029;
+    const totalChars = script.lines.join("").length;
     return (
         <div className="ProgressBar">
             CHARS: {state.nbCorrect}/{totalChars}

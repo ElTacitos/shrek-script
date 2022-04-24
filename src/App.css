@@ -1,6 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap');
+
 body {
-  background-color: #181a1b;
-  color: #dcdcdc;
+  --green1: #b3d971;
+  --green2: #8cb04e;
+  --brown: #3a2c1d;
+  --dark-green: #3c3a19;
+  --beige: #dfddb5;
+
+  font-family: 'JetBrains Mono', monospace !important;
+
+  background-color: var(--brown);
+  color: var(--green2);
 }
 
 .App {

@@ -23,7 +23,7 @@ function Input(props) {
     }
 
     return (
-        <div className="Input">
+        <div className={`Input ${state.focused ? "" : "ShowBorder"}`}>
             <input
                 onBlur={onBlur}
                 onChange={voidHandler}
@@ -33,7 +33,7 @@ function Input(props) {
                 value={inputValue}
             />
             <svg className={`Caret ${state.focused ? "Blinking" : ""}`}>
-                <rect fill="white" width="100%" height="0.1rem"/>
+                <rect fill="#dfddb5" width="100%" height="0.1rem"/>
             </svg>
         </div>
     );

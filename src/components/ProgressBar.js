@@ -12,12 +12,12 @@ function ProgressBar() {
                 <rect
                     width="100%"
                     height="100%"
-                    fill="#2F2F2F"
+                    fill="#443422"
                 />
                 <rect
                     width={`${state.nbCorrect*100/totalChars}%`}
                     height="100%"
-                    fill="#FFCB74"
+                    fill="#dfddb5"
                 />
             </svg>
         </div>

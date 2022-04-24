@@ -14,7 +14,7 @@ input, input:active, input:focus{
     background: transparent;
     width: 100%;
 
-    caret-color: #181a1b;
+    caret-color: transparent;
 }
 
 .Caret {

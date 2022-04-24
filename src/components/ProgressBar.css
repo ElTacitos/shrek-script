@@ -6,5 +6,9 @@
 }
 
 .Bar {
+    margin-top: 0.25rem;
     height: 1rem;
+
+    border: 1px solid var(--green1) !important;
+    border-radius: 5px;
 }

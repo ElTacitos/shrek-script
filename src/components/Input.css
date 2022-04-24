@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
 
-    border: 0;
+    z-index: 2;
 }
 
 input, input:active, input:focus{
@@ -17,9 +17,14 @@ input, input:active, input:focus{
     caret-color: transparent;
 }
 
+.ShowBorder {
+    box-shadow: 0 0 10px var(--green1);
+    border-radius: 3px;
+}
+
 .Caret {
     height: 0.1rem;
-    width: 100%;
+    width: calc(100% - 0.1rem);
 }
 
 .Blinking {

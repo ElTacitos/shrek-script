@@ -6,36 +6,36 @@ import {Context} from "../Context";
 
 function Text() {
     const {dispatch, state} = React.useContext(Context);
-    const [lineNumber, setLineNumber] = React.useState(1);
-    const [beforeText, setBeforeText] = React.useState("Click on the caret ");
-    const [afterText, setAfterText] = React.useState(script.lines[0]);
 
     const keysToIgnore = ["Shift", "CapsLock", "Alt", "Control", "Backspace", "Escape"]
     const maxChars = 400;
     const maxLinesAfter = 4;
 
     function handleCorrectKey() {
-        setBeforeText(beforeText + afterText[0]);
-        setAfterText(afterText.substring(1, afterText.length));
+        dispatch({type: "SET_BEFORE_TEXT", beforeText: state.beforeText + state.afterText[0]})
+        dispatch({type: "SET_AFTER_TEXT", afterText: state.afterText.slice(1)})
 
-        if(afterText.length === 1) {
+        if(state.afterText.length === 1) {
             if(!state.tutorialDone) {
                 dispatch({type: "END_TUTORIAL"})
-                setBeforeText("");
+                dispatch({type: "SET_BEFORE_TEXT", beforeText: ""})
             }
-            setLineNumber(lineNumber + maxLinesAfter);
-            setAfterText(script.lines.slice(lineNumber, lineNumber+maxLinesAfter).join(""));
+            dispatch({type: "SET_LINE_NUMBER", increment: maxLinesAfter});
+            const newAfterText = script.lines.slice(state.lineNumber, state.lineNumber+maxLinesAfter).join("");
+            dispatch({type: "SET_AFTER_TEXT", afterText: newAfterText})
             return;
         }
-        if (state.tutorialDone && afterText.length <= maxChars) {
+        if (state.tutorialDone && state.afterText.length <= maxChars) {
             console.log("ADDED TEXT")
-            setLineNumber(lineNumber + 1);
-            setAfterText(afterText.substring(1, afterText.length) + script.lines[lineNumber]);
+            dispatch({type: "SET_LINE_NUMBER", increment: 1});
+            dispatch({type: "SET_AFTER_TEXT", afterText: state.afterText.slice(1) + script.lines[state.lineNumber]})
         }
 
-        if (beforeText.length >= maxChars) {
+        if (state.beforeText.length >= maxChars) {
             console.log("RESET TEXT")
-            setBeforeText(beforeText.substring(beforeText.length/2, beforeText.length)+ afterText[0]);
+            const curBeforeText = state.beforeText;
+            const newBeforeText = curBeforeText.substring(curBeforeText.length/2, curBeforeText.length)+ state.afterText[0]
+            dispatch({type: "SET_BEFORE_TEXT", beforeText: newBeforeText});
         }
     }
 
@@ -43,23 +43,23 @@ function Text() {
         if (keysToIgnore.includes(key)) {
             return;
         }
-        if(afterText[0] === key) {
+        if(state.afterText[0] === key) {
             handleCorrectKey()
         } else{
             console.error("Wrong key press!", key);
         }
 
         if(state.tutorialDone) {
-            dispatch({type: "HANDLE_KEY_PRESS", correct: afterText[0] === key});
+            dispatch({type: "HANDLE_KEY_PRESS", correct: state.afterText[0] === key});
         }
 
     }
 
     return (
         <div className="Text">
-            <span className="BeforeText">{ beforeText }</span>
+            <span className="BeforeText">{ state.beforeText }</span>
             <Input handleKeyDown={handleKeyDown}/>
-            <span className="AfterText">{ afterText }</span>
+            <span className="AfterText">{ state.afterText }</span>
         </div>
     );
 }

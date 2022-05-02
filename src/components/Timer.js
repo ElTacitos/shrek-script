@@ -1,20 +1,9 @@
 import React, { useEffect } from 'react';
 import {Context} from "../Context";
+import {getTime} from "../utils";
 
 function Timer() {
     const {dispatch, state} = React.useContext(Context);
-
-    function getSeconds() {
-        return String(state.seconds%60).padStart(2, '0');
-    }
-
-    function getMinutes() {
-        return String(Math.floor(state.seconds/60)).padStart(2, '0');
-    }
-
-    function getHours() {
-        return String(Math.floor(state.seconds/3600)).padStart(2, '0');
-    }
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -25,7 +14,7 @@ function Timer() {
 
     return (
         <div>
-            {`${getHours()}:${getMinutes()}:${getSeconds()}`}
+            {getTime(state.seconds)}
         </div>
     )
 }

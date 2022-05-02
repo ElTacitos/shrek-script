@@ -1,0 +1,11 @@
+.EndScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.EndScreen > .Title {
+    font-size: 1.75rem;
+    font-weight: normal;
+}

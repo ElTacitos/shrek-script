@@ -3,6 +3,7 @@ import Input from "./Input";
 import React from 'react';
 import script from "../assets/script.json";
 import {Context} from "../Context";
+import {getTotalChars} from "../utils";
 
 function Text() {
     const {dispatch, state} = React.useContext(Context);
@@ -15,6 +16,11 @@ function Text() {
         dispatch({type: "SET_BEFORE_TEXT", beforeText: state.beforeText + state.afterText[0]})
         dispatch({type: "SET_AFTER_TEXT", afterText: state.afterText.slice(1)})
 
+
+        if(state.nbCorrect === getTotalChars()-1) {
+            dispatch({type: "END"})
+            return;
+        }
         if(state.afterText.length === 1) {
             if(!state.tutorialDone) {
                 dispatch({type: "END_TUTORIAL"})
@@ -25,7 +31,7 @@ function Text() {
             dispatch({type: "SET_AFTER_TEXT", afterText: newAfterText})
             return;
         }
-        if (state.tutorialDone && state.afterText.length <= maxChars) {
+        if (state.tutorialDone && state.afterText.length <= maxChars && state.lineNumber < script.lines.length) {
             console.log("ADDED TEXT")
             dispatch({type: "SET_LINE_NUMBER", increment: 1});
             dispatch({type: "SET_AFTER_TEXT", afterText: state.afterText.slice(1) + script.lines[state.lineNumber]})

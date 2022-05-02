@@ -1,6 +1,11 @@
 @import "../assets/shrek-font/stylesheet.css";
 
 .Title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
     font-family: 'shrekregular', 'JetBrains Mono', monospace;
     letter-spacing: 0.1rem;
     font-size: 2rem;

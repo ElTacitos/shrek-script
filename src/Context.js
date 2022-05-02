@@ -14,6 +14,7 @@ export const initialState = {
     nbCorrect: getNbCorrect(),
     seconds: getSeconds(),
     tutorialDone: getTutorialDone(),
+    ended: true,
 }
 
 function getAfterText() {
@@ -129,6 +130,12 @@ export function reducer(state, action) {
             return {
                 ...state,
                 focused: action.value
+            }
+        case "END":
+            return {
+                ...state,
+                ended: true,
+                focused: false,
             }
         default:
             console.error("Action not handled: ", action);

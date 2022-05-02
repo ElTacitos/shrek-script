@@ -1,14 +1,14 @@
 import './ProgressBar.css';
 import React from "react";
-import script from "../assets/script.json";
 import {Context} from "../Context";
+import {getTotalChars} from "../utils";
 
 function ProgressBar() {
     const {state} = React.useContext(Context);
-    const totalChars = script.lines.join("").length;
+
     return (
         <div className="ProgressBar">
-            CHARS: {state.nbCorrect}/{totalChars}
+            CHARS: {state.nbCorrect}/{getTotalChars()}
             <svg className="Bar">
                 <rect
                     width="100%"
@@ -16,7 +16,7 @@ function ProgressBar() {
                     fill="#443422"
                 />
                 <rect
-                    width={`${state.nbCorrect*100/totalChars}%`}
+                    width={`${state.nbCorrect*100/getTotalChars()}%`}
                     height="100%"
                     fill="#dfddb5"
                 />

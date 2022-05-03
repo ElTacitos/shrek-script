@@ -2,8 +2,6 @@
     display: grid;
     grid-template-columns: 1fr 0.70rem 1fr;
     grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
 
     border: red solid 1px;
     padding: 1rem;
@@ -12,6 +10,7 @@
 
 .Text * {
     display: inline;
+    align-self: center;
 }
 
 .BeforeText {

@@ -14,7 +14,7 @@ export const initialState = {
     nbCorrect: getNbCorrect(),
     seconds: getSeconds(),
     tutorialDone: getTutorialDone(),
-    ended: true,
+    ended: getEnded(),
 }
 
 function getAfterText() {
@@ -31,6 +31,14 @@ function getBeforeText() {
     }
     localStorage.setItem("beforeText", defaultBeforeText);
     return defaultBeforeText;
+}
+
+function getEnded() {
+    if (localStorage.getItem("ended")) {
+        return localStorage.getItem("ended") === "true";
+    }
+    localStorage.setItem("ended", String(false));
+    return false;
 }
 
 function getLineNumber() {
@@ -132,10 +140,31 @@ export function reducer(state, action) {
                 focused: action.value
             }
         case "END":
+            localStorage.setItem("ended", String(true));
             return {
                 ...state,
                 ended: true,
                 focused: false,
+            }
+        case "RESET":
+            localStorage.setItem("beforeText", defaultBeforeText);
+            localStorage.setItem("afterText", defaultAfterText);
+            localStorage.setItem("lineNumber", String(defaultLineNumber));
+            localStorage.setItem("tutorialDone", String(false));
+            localStorage.setItem("nbCorrect", String(0));
+            localStorage.setItem("nbErrors", String(0));
+            localStorage.setItem("seconds", String(0));
+            localStorage.setItem("ended", String(false));
+            return {
+                afterText: defaultAfterText,
+                beforeText: defaultBeforeText,
+                focused: false,
+                lineNumber: defaultLineNumber,
+                nbErrors: 0,
+                nbCorrect: 0,
+                seconds: 0,
+                tutorialDone: false,
+                ended: false,
             }
         default:
             console.error("Action not handled: ", action);

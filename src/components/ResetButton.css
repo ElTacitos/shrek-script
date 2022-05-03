@@ -1,0 +1,6 @@
+.ResetButton {
+    background-color: var(--dark-green);
+    color: var(--green1);
+    font-size: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+}

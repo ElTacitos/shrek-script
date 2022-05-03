@@ -9,3 +9,7 @@
     font-size: 1.75rem;
     font-weight: normal;
 }
+
+.EndScreen > :not(.Title) {
+    margin-top: 0.75rem;
+}

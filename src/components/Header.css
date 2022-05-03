@@ -1,13 +1,24 @@
 @import "../assets/shrek-font/stylesheet.css";
 
-.Title {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+.Header {
+    display: grid;
+    grid-template-columns: 1fr 7fr 1fr;
+    grid-template-rows: 1fr;
 
     font-family: 'shrekregular', 'JetBrains Mono', monospace;
     letter-spacing: 0.1rem;
     font-size: 2rem;
     text-align: center;
+}
+
+.Title {
+    grid-area: 1 / 2 / 2 / 3;
+    align-self: center;
+}
+
+.ResetButton {
+    grid-area: 1 / 3 / 2 / 4;
+    align-self: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
